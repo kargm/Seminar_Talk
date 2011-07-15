@@ -1,0 +1,275 @@
+\documentclass{beamer}
+\usepackage{german}
+
+\usepackage{flashmovie}
+\usepackage{multimedia}
+%\usepackage{movie15}
+\graphicspath{{../../../pictures/src/}}
+% commands for the translation of the document are shown after \end{document}
+
+%% mode specific adjustments
+
+\usetheme{TUMias}
+\setbeamertemplate{headline}[tumias]
+%\usecolortheme{squid}
+%\setbeamertemplate{headline}[ias]%[english]
+
+% f�r Garching oder Freising gibt es noch weitere M�glichkeit f�r die Kopfzeile
+%\useoutertheme{shadedhead}
+
+\mode<beamer>
+{
+  \AtBeginSection[]
+  {
+    \begin{frame}<beamer>
+      \frametitle{Outline}
+      \tableofcontents[currentsection,currentsubsection]
+    \end{frame}
+  }
+}
+
+%% General Information
+\title[Expectations in HRI] % (optional, use only with long paper titles)
+{Towards Expectation-Based Failure Recognition for Human Robot Interaction}
+
+\subtitle{TUM-IAS and LAAS-RIA Spring Workshop} % (optional)
+
+\author % (optional, use only with lots of authors)
+{Michael Karg}
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[TU München] % (optional, but mostly needed)
+{
+  
+  Department of Computer Science\\
+  Intelligent Autonomous Systems Group
+}
+% - Use the \inst command only if there are several affiliations.
+% - Keep it simple, no one is interested in your street address.
+
+\date[TUM-IAS and LAAS-RIA Spring Workshop] % (optional)
+{11 July 2011}
+
+
+\subject{Talks}
+% This is only inserted into the PDF information catalog. Can be left
+% out.
+
+\newcommand{\texcmd}[1]{{\ttfamily\textbackslash #1}}
+
+%\newcommand{\todo}[1]{\textbf{\textsc{\textcolor{red}{(TODO: #1)}}}}
+
+
+\begin{document}
+\definecolor{blue}{rgb}{0,0.396, 0.741}
+\maketitle
+
+\begin{frame}
+  \frametitle{Outline}
+  \tableofcontents
+  % You might wish to add the option [pausesections]
+\end{frame}
+
+\section[Adapto Project]{The Adapto Project}
+
+\begin{frame}{The Adapto Project}
+  \small
+  \begin{itemize}
+    %\item Part of Intelligent Autonomous Systems group of Prof. Beetz at TUM
+    \item Intelligent Autonomous Systems Group of Prof. Michael Beetz
+    \item Adapto project under the supervision of Dr. Alexandra Kirsch
+    \item Goal: Make technical systems more comprehensive for users to support people in everyday activities
+    \item Develop algorithms inspired by human behavior for dynamic, uncertain and human centered environments
+    \item Use of planning, knowledge representation and machine learning
+    %TODO: GRUPPENBILD
+    %\item Failure recognition and avoidance using expectation models
+    %\item Continual adaptation by learning prediction models
+  \end{itemize}
+  \begin{tabular}[h]{p{0.3\textwidth} p{0.3\textwidth} p{0.3\textwidth}}
+     \begin{figure}[h]
+    \includegraphics[scale=0.090]{para/hri_morse.png} 
+  \end{figure}&
+    \begin{figure}[h]
+    \includegraphics[scale=0.062]{para/para_group.jpg} 
+  \end{figure} &
+   \begin{figure}[h]
+    \includegraphics[scale=0.08]{para/jointtableset.jpg} 
+  \end{figure}\\
+  \end{tabular}
+ 
+\end{frame}
+
+\section[Expectations]{Expectations for Failure Recognition}
+
+%\subsection{Why use Expectations?}
+\begin{frame}{Why Use Expectations?}
+  \begin{itemize}
+  \item Not always clear: \textcolor{blue}{What is a failure?}
+  \item Impossible for the programmer to anticipate all possible states and failures in the real world
+  \item Expectations can enable us to \textcolor{blue}{detect unexpected events and failures} that have not been foreseen by the programmer
+  \item Diagnosis using expectations can help to prevent errors and react to them thus making plans more \textcolor{blue}{flexible, reliable and general}
+  \end{itemize}
+\end{frame}
+
+%\subsection{What are Expectations?}
+\begin{frame}{What Are Expectations?}
+\begin{itemize}
+  \item Combination of different models that implicitly include predictions of robots environment, the human partner(s), the robot itself etc.
+  \item Allow for a general understanding of ``normality'' 
+\end{itemize}
+ \begin{tabular}[h]{p{0.45\textwidth} p{0.45\textwidth}}
+    \begin{figure}[h]
+    \includegraphics[scale=0.095]{para/morse_scene_abnormal.png}
+  \end{figure} &
+   \begin{figure}[h]
+    \includegraphics[scale=0.095]{para/morse_scene_normal.png} 
+  \end{figure}\\
+  \end{tabular}
+\end{frame}
+
+%\subsection{Expectations for Failure Recognition and Recovery}
+\begin{frame}{Using Expectations for Failure Recognition and Recovery}
+ \begin{figure}[h]
+    \includegraphics[scale=0.95]{para/adapto_expectations_structure_2.png} 
+  \end{figure}
+%TODO: Plan adaptation in Bild!
+\end{frame}
+
+%\subsection{Challenges}
+\begin{frame}{Challenges}
+We see three main challenges:
+ \begin{description}
+\item [Representation] of expectations
+\item [Modeling efficiency]: Generation of expectations
+\item [Execution efficiency]: Validation of expectations
+\end{description} 
+ \begin{figure}[h]
+%     \begin{tabular}{p{0.5\textwidth} p{0.4\textwidth}}
+%      &
+        \includegraphics[scale=0.1]{para/Jido_confused.png} \\
+%     \end{tabular}
+  \end{figure}
+\end{frame}
+
+%\subsection*{Challenges: Representation of Expectations}
+\label{sec:representation}
+
+\begin{frame}{Challenges: Representation of Expectations}
+  \begin{itemize}
+  \item Four categories: robot's plans, environment, human and robot itself
+  \item Categories have dependencies among each other
+  \item Expectations are time variant and have to be adaptable to changes
+  \item Expectations should be capable of dealing with uncertainties
+  \end{itemize}
+  \begin{block}{Ideas:}
+    Hierarchical, probabilistic hybrid automaton, high-level particle filter, probabilistic logic, fuzzy logic
+  \end{block}
+\end{frame}
+
+%\subsection*{Challenges: Modeling Efficiency}
+\label{sec:model}
+
+\begin{frame}{Challenges: Modeling Efficiency}
+  \begin{itemize}
+  \item Generation of different models by learning from experiences
+  \item Combination of models to generate expectations
+  \item General/Abstract model, so not every possible failure state has to be modeled
+  \item Learning from observations and experiences
+  \end{itemize}
+  \begin{block}{Ideas:}
+  Ideas: Use abstract ontological and geometrical knowledge from available data bases combined with continual learning of experiences
+  \end{block}
+\end{frame}
+
+%\subsection*{Challenges: Execution Efficiency}
+\label{sec:execution}
+
+\begin{frame}{Challenges: Execution Efficiency}
+  \begin{itemize}
+  \item Prerequisite: Real time
+  \item Validation of expectations should allow to recognize ``abnormal'' behavior and trigger adequate reactions
+  \item Continual learning and update of existing expectations while plan execution
+  \end{itemize}
+  \begin{block}{Ideas:}
+    Validation of expectations depending on ``normality'' of the robots current world to limit the search space (Inspired by humans).
+  \end{block}
+\end{frame}
+
+\section{Implementation and Evaluation}
+
+%\subsection{CRAM Plan Language}
+\label{sec:cram}
+
+\begin{frame}{The CRAM Plan Language}
+  \begin{itemize}
+  \item Cognitive Robot Abstract Machine
+  \item Plan-based control of autonomous robots
+  \item CRAM plan language based on CommonLISP
+  \item Complex failure handling
+  \item Task synchronization, parallel execution, resource management
+  \end{itemize}
+  \begin{block}{CRAM-PL ROS-package:}
+      \centering
+      \url{http://www.ros.org/wiki/cram_pl}
+  \end{block}
+\end{frame} 
+
+
+%\subsection{MORSE Simulator}
+\begin{frame}{The MORSE Simulator}
+\begin{itemize}
+\item Modular Robot Simulation Engine
+\item Modularity allows to regulate level of detail according to our needs (e.g. task planning)
+\item Human model already available
+\item Game mode for Human Robot Interaction scenarios
+\item Compatible with ROS
+\item Model of PR2 on the way
+\end{itemize}
+ \begin{figure}[h]
+    \includegraphics[scale=0.076]{para/human_navigation_wide.png} 
+  \end{figure}
+
+\end{frame}
+
+%\subsection*{An Intuitive Human Control Interface for MORSE}
+\begin{frame}{An Intuitive Human Control Interface for MORSE}
+ \begin{center}
+   \movie[externalviewer]{\includegraphics[width=0.85\textwidth]{para/morse_human_interface.png}}{morse_human_interface.mp4}
+ \end{center}
+%    \begin{tabular}{p{0.9\textwidth}}	
+%      \flashmoviex[width=9.5cm,height=7cm]{morse_human_interface.mp4}\\
+%    \end{tabular}
+%  \includemovie[poster,autoplay, controls=false,endat=time:12]{6cm}{4.5cm}{morse_human_interface.avi}
+\end{frame}
+
+\section{Summary}
+
+\begin{frame}
+  \frametitle<presentation>{Summary}
+
+  \begin{itemize}
+  \item Expectations in cooperative human robot interaction plans
+  \item Abstract model of expectations about the robots plans, the environment, the human(s) and the robot itself
+  \item Three main challenges: Representation, modeling efficiency, execution efficiency
+  \item Implementation using CRAM Plan Language
+  \item Evaluation using MORSE simulator and an intuitive human control interface
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}{The end}
+ \begin{center}
+  Any questions?
+\end{center}
+\end{frame}
+
+\end{document}
+
+
+Making Slides:
+pdflatex beamerexample.tex
+
+Making Handout:
+beamer-handout --frame true beamerexample.tex
+
